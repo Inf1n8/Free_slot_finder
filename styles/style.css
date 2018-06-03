@@ -1,0 +1,22 @@
+.parent
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+body
+{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.container {
+    align-self: center;
+}
+
+.logo
+{
+    height: 25%!important;
+    width: 20%;
+}
