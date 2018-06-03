@@ -20,3 +20,24 @@ body
     height: 25%!important;
     width: 20%;
 }
+
+td{
+    padding: 10px;
+}
+
+td:hover{
+    background-color: lightblue;
+}
+
+.tdSelected{
+    background-color: lightblue;
+}
+
+.findMembersContainer{
+    height: 100vh;
+    width: 100vw;
+}
+
+.findBtn{
+    border-radius: 20px;
+}
