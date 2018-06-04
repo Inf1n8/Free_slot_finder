@@ -7,6 +7,10 @@ photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/img'
 configure_uploads(app, photos)
 
+@app.route('/')
+def main():
+	return 'This is something cool will be up soon....'
+
 @app.route('/upload', methods=['POST'])
 def upload():
     print('hi')
