@@ -20,7 +20,7 @@ function submitDet() {
         formData.append('regNo', regNo);
         formData.append('timetable', imageFile.files[0]);
         $.ajax({
-            url: "http://127.0.0.1:5000/upload",
+            url: "https://timetablefreeslotfinder.herokuapp.com/upload",
             data: formData,
             cache: false,
             processData: false,
@@ -74,7 +74,7 @@ function findMembers()
     var data={day,tabId};
     console.log(data);
     $.ajax({
-        url:'http://127.0.0.1:5000/findMembers',
+        url:'https://timetablefreeslotfinder.herokuapp.com/findMembers',
         data: JSON.stringify(data),
         cache: false,
         processData: false,
@@ -92,7 +92,7 @@ function searchMember(){
     var day=$('#days').val();
     var data= {name, day};
     $.ajax({
-        url: 'http://127.0.0.1:5000/searchMember',
+        url: 'https://timetablefreeslotfinder.herokuapp.com/searchMember',
         data: JSON.stringify(data),
         cache: false,
         processData: false,
