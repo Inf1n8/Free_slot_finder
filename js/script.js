@@ -1,5 +1,14 @@
 console.log('loaded');
 
+
+document.body.addEventListener('click', function(e) {
+    e.target.update && e.target.update();
+});
+
+if (!window.customElements || !document.head.attachShadow) {
+    document.querySelector('html').className += ' oldie'
+}
+
 function submitDet() {
     let imageFile = document.getElementById('imageFile');
     let name = $('#name').val();
@@ -75,5 +84,22 @@ function findMembers()
             console.log(data);
         }
 
+    })
+}
+
+function searchMember(){
+    var name=$('#memberName').val();
+    var day=$('#days').val();
+    var data= {name, day};
+    $.ajax({
+        url: 'https://timetablefreeslotfinder.herokuapp.com/searchMember',
+        data: JSON.stringify(data),
+        cache: false,
+        processData: false,
+        contentType: 'application/json;charset=UTF-8',
+        type: 'POST',
+        success: function (data) {
+            console.log(data);
+        }
     })
 }
