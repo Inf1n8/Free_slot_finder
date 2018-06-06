@@ -5,11 +5,12 @@ from flask_pymongo import PyMongo
 from screenshotAnalyzer import convertImage2json
 from slotToTime import convertSlotToTime
 from queryFunctions import findFreeMembers
+from queryFunctions import findFreeSlots
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['MONGO_DBNAME'] = 'freeslots'
-app.config['MONGO_URI'] = 'mongodb://<dbname>:<dbpwd>@ds147440.mlab.com:47440/freeslots'
+app.config['MONGO_URI'] = 'mongodb://dscfreeslots:freeslots1!@ds147440.mlab.com:47440/freeslots'
 
 mongo = PyMongo(app)
 
@@ -47,7 +48,7 @@ def upload():
 @cross_origin()
 def findMembers():
     print(request.json['day'], request.json['tabId'])
-    day = request.json['day']
+    day = request.json['day'][:3]
     tabId = request.json['tabId']
     user = mongo.db.users
     slots = {}
@@ -55,7 +56,7 @@ def findMembers():
           del(u['_id'])
           for name in u:
                slots[name] = u[name]
-    findFreeMembers(tabId, day, slots)
+    print(findFreeMembers(tabId, day, slots))
     return "request processed"
 
     return 'recieved info successfully'
@@ -64,9 +65,22 @@ def findMembers():
 @app.route('/searchMember', methods=['POST'])
 @cross_origin()
 def searchMember():
-    print(request.json['name'], request.json['day'])
+    print(request.json['name'], request.json['day'][:3])
     name = request.json['name']
-    day = request.json['day']
+    day = str.lower(request.json['day'][:3])
+    user = mongo.db.users
+    
+    
+    for u in user.find():
+          del(u['_id'])
+          for nam in u:
+                  
+                  if(nam == name):
+                          result = findFreeSlots(name, day, u[nam])
+                          break
+    print(result)
+                          
+                          
     return 'recieved data successfully'
 
 if __name__ == '__main__':
