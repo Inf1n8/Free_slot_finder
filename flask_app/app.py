@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask,jsonify,request
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_cors import CORS, cross_origin
 from flask_pymongo import PyMongo
@@ -56,10 +56,9 @@ def findMembers():
           del(u['_id'])
           for name in u:
                slots[name] = u[name]
-    print(findFreeMembers(tabId, day, slots))
-    return "request processed"
-
-    return 'recieved info successfully'
+    data=findFreeMembers(tabId, day, slots)
+    print(jsonify(data))
+    return jsonify(data)
 
 
 @app.route('/searchMember', methods=['POST'])
@@ -81,7 +80,7 @@ def searchMember():
     print(result)
                           
                           
-    return 'recieved data successfully'
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run()
