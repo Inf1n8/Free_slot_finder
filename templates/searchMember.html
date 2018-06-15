@@ -10,6 +10,7 @@
 <body>
 <div id="searchMemberContainer">
     <div class="row">
+        <h2 class="center-align">Search Members</h2>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
             <div class="input-field col s12">
                 <input id="memberName" type="text" class="validate" required>
@@ -26,10 +27,13 @@
                     <option value="Friday">Friday</option>
                 </select>
             </div>
-            <div class="row">
-                <a class="waves-effect waves-light btn-large" style="background-color: #4885ed" onclick="searchMember()">Search</a>
+            <div class="row" >
+                <a class="waves-effect waves-light btn-large searchBtn" onclick="searchMember()">Search</a>
             </div>
         </div>
+    </div>
+    <div class="row">
+    <div class="searchResult col m8 offset-m2" style="margin-bottom: 10%"></div>
     </div>
 </div>
 
