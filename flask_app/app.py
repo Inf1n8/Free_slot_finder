@@ -1,4 +1,4 @@
-from flask import Flask,jsonify,request
+from flask import Flask, jsonify, request
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_cors import CORS, cross_origin
 from flask_pymongo import PyMongo
@@ -20,10 +20,12 @@ photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/img'
 configure_uploads(app, photos)
 
+
 @app.route('/')
 @cross_origin()
 def main():
-	return 'This is something cool will be up soon....'
+    return 'This is something cool will be up soon....'
+
 
 @app.route('/upload', methods=['POST'])
 @cross_origin()
@@ -36,7 +38,7 @@ def upload():
     nam, L = convertImage2json(filename)
     data = convertSlotToTime(L)
     print(data)
-    temp_dict = {name : data}
+    temp_dict = {name: data}
     print(temp_dict)
     user = mongo.db.users
     user.insert(temp_dict)
@@ -53,10 +55,10 @@ def findMembers():
     user = mongo.db.users
     slots = {}
     for u in user.find():
-          del(u['_id'])
-          for name in u:
-               slots[name] = u[name]
-    data=findFreeMembers(tabId, day, slots)
+        del (u['_id'])
+        for name in u:
+            slots[name] = u[name]
+    data = findFreeMembers(tabId, day, slots)
     print(jsonify(data))
     return jsonify(data)
 
@@ -68,19 +70,15 @@ def searchMember():
     name = request.json['name']
     day = str.lower(request.json['day'][:3])
     user = mongo.db.users
-    
-    
     for u in user.find():
-          del(u['_id'])
-          for nam in u:
-                  
-                  if(nam == name):
-                          result = findFreeSlots(name, day, u[nam])
-                          break
+        del (u['_id'])
+        for nam in u:
+            if (nam == name):
+                result = findFreeSlots(name, day, u[nam])
+                break
     print(result)
-                          
-                          
     return jsonify(result)
+
 
 if __name__ == '__main__':
     app.run()
