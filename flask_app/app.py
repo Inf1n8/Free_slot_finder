@@ -70,14 +70,17 @@ def searchMember():
     name = request.json['name']
     day = str.lower(request.json['day'][:3])
     user = mongo.db.users
+    
     for u in user.find():
         del (u['_id'])
         for nam in u:
             if (nam == name):
                 result = findFreeSlots(name, day, u[nam])
-                break
-    print(result)
-    return jsonify(result)
+                print(result)
+                return jsonify(result)
+
+    return 'Member not found!'
+    
 
 
 if __name__ == '__main__':
