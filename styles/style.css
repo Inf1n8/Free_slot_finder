@@ -25,12 +25,12 @@ td {
 
 td:hover {
     background-color: black;
-    color:white;
+    color: white;
 }
 
 .tdSelected {
     background-color: black;
-    color:white;
+    color: white;
 }
 
 #findMembersContainer {
@@ -57,19 +57,17 @@ td:hover {
 
 }
 
-.available{
-    background-color: green!important;
-    color:white!important;
+.available {
+    background-color: green !important;
+    color: white !important;
 }
 
-.searchBtn
-{
+.searchBtn {
     background-color: #4885ed;
-    left:45%;
+    left: 45%;
     margin-top: 20px;
 }
 
-.searchBtn:hover
-{
+.searchBtn:hover {
     background-color: #4885ed;
 }

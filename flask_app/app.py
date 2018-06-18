@@ -10,7 +10,7 @@ from queryFunctions import findFreeSlots
 app = Flask(__name__)
 cors = CORS(app)
 app.config['MONGO_DBNAME'] = 'freeslots'
-app.config['MONGO_URI'] = 'mongodb://dbname:dbpwd@ds147440.mlab.com:47440/freeslots'
+app.config['MONGO_URI'] = 'mongodb://dscfreeslots:freeslots1!@ds147440.mlab.com:47440/freeslots'
 
 mongo = PyMongo(app)
 
