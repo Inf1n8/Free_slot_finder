@@ -56,10 +56,9 @@ def findMembers():
           del(u['_id'])
           for name in u:
                slots[name] = u[name]
-    print(findFreeMembers(tabId, day, slots))
-    return "request processed"
 
-    return 'recieved info successfully'
+    return findFreeMembers(tabId, day, slots)[0]
+   
 
 
 @app.route('/searchMember', methods=['POST'])
@@ -81,7 +80,7 @@ def searchMember():
     print(result)
                           
                           
-    return 'recieved data successfully'
+    return result
 
 if __name__ == '__main__':
     app.run()
