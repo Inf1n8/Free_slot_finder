@@ -55,21 +55,20 @@ def findMembers():
     user = mongo.db.users
     slots = {}
     for u in user.find():
-        <<<<<<< HEAD
+
         del(u['_id'])
         for name in u:
             slots[name] = u[name]
 
     return findFreeMembers(tabId, day, slots)[0]
-   
-=======
+
         del (u['_id'])
         for name in u:
             slots[name] = u[name]
     data = findFreeMembers(tabId, day, slots)
     print(jsonify(data))
     return jsonify(data)
->>>>>>> 90217a6741ec00d62f7a22cfbad3f1dcbbcaef78
+
 
 
 @app.route('/searchMember', methods=['POST'])
@@ -81,7 +80,7 @@ def searchMember():
     user = mongo.db.users
     
     for u in user.find():
-<<<<<<< HEAD
+
           del(u['_id'])
           for nam in u:
                   
@@ -92,7 +91,7 @@ def searchMember():
                           
                           
     return result
-=======
+
         del (u['_id'])
         for nam in u:
             if (nam == name):
@@ -103,7 +102,6 @@ def searchMember():
     return 'Member not found!'
     
 
->>>>>>> 90217a6741ec00d62f7a22cfbad3f1dcbbcaef78
 
 if __name__ == '__main__':
     app.run()
