@@ -2,23 +2,21 @@ from flask import Flask, jsonify, request
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_cors import CORS, cross_origin
 from flask_pymongo import PyMongo
-from screenshotAnalyzer2 import convertImage2json
+from screenshotAnalyzer import convertImage2json
 from slotToTime import convertSlotToTime
 from queryFunctions import findFreeMembers
 from queryFunctions import findFreeSlots
 
 app = Flask(__name__)
 cors = CORS(app)
-
-# Connecting to the database
 app.config['MONGO_DBNAME'] = 'freeslots'
 app.config['MONGO_URI'] = 'mongodb://dscfreeslots:freeslots1!@ds147440.mlab.com:47440/freeslots'
 
 mongo = PyMongo(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
-photos = UploadSet('photos', IMAGES)
 
-#specifying temporary location to save timetable photos
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/img'
 configure_uploads(app, photos)
 
@@ -34,17 +32,17 @@ def main():
 def upload():
     print('hi')
     name = request.form['name']
-    club = request.form['clubCode']
+    regno = request.form['regNo']
     filename = photos.save(request.files['timetable'])
-    print(name, club)
+    print(name, regno)
     nam, L = convertImage2json(filename)
     data = convertSlotToTime(L)
     print(data)
-    temp_dict = {name: data, 'club':club}
+    temp_dict = {name: data}
     print(temp_dict)
     user = mongo.db.users
     user.insert(temp_dict)
-    
+    print(name, regno)
     return 'Uploaded successfully'
 
 
@@ -57,13 +55,21 @@ def findMembers():
     user = mongo.db.users
     slots = {}
     for u in user.find():
+        <<<<<<< HEAD
+        del(u['_id'])
+        for name in u:
+            slots[name] = u[name]
+
+    return findFreeMembers(tabId, day, slots)[0]
+   
+=======
         del (u['_id'])
         for name in u:
-            if(name != "club"):
-                slots[name] = u[name]
+            slots[name] = u[name]
     data = findFreeMembers(tabId, day, slots)
     print(jsonify(data))
     return jsonify(data)
+>>>>>>> 90217a6741ec00d62f7a22cfbad3f1dcbbcaef78
 
 
 @app.route('/searchMember', methods=['POST'])
@@ -73,17 +79,22 @@ def searchMember():
     name = request.json['name']
     day = str.lower(request.json['day'][:3])
     user = mongo.db.users
-    members = []
+    
     for u in user.find():
+<<<<<<< HEAD
+          del(u['_id'])
+          for nam in u:
+                  
+                  if(nam == name):
+                          result = findFreeSlots(name, day, u[nam])
+                          break
+    print(result)
+                          
+                          
+    return result
+=======
         del (u['_id'])
         for nam in u:
-            if(name != "club"):
-                members.append(nam)
-    print(members)
-    for u in user.find():
-        del (u['_id'])
-        for nam in u:
-            
             if (nam == name):
                 result = findFreeSlots(name, day, u[nam])
                 print(result)
@@ -92,6 +103,7 @@ def searchMember():
     return 'Member not found!'
     
 
+>>>>>>> 90217a6741ec00d62f7a22cfbad3f1dcbbcaef78
 
 if __name__ == '__main__':
     app.run()
